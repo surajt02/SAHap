@@ -48,7 +48,6 @@ ks = list(reads.keys())
 ks.sort()
 
 
-temp_wif = open('data/temp/temp.wif', 'w')
 
 for start in ks:
     for end in reads[start]:
@@ -59,24 +58,20 @@ for start in ks:
         for i in range(int(start),int(end) + 1):
             if i == err_pos:
                 haplotypes[H][i] = int(not haplotypes[H][i])
-            temp_wif.write(f'{i} X {haplotypes[H][i]} 61 : ')
+            print(f'{i} X {haplotypes[H][i]} 61', end=" : ")
             if i == err_pos:
                 haplotypes[H][i] = int(not haplotypes[H][i])
-        temp_wif.write("# 60 : NA\n")
+        print("# 60 : NA")
         
-temp_wif.close()
 
 
 # 4492 C 1 61 : 14636 T 0 61 :
 #GROUND TRUTH
 
-tempGT_txt = open('data/temp/tempGT.txt', 'w')
 
 for haplotype in haplotypes:
     for i in haplotype[int(min_snp):int(max_snp)+1]:
-        tempGT_txt.write(str(i))
-    tempGT_txt.write("\n")
+        print(str(i), end="", file=sys.stderr)
+    print("", file=sys.stderr)
 
-tempGT_txt.close()
 
-print("data files located in 'SAHap/data/temp/'")
